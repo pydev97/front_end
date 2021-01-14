@@ -1,5 +1,5 @@
 import {createStore,applyMiddleware} from 'redux'
-import {listUserReducer} from '../component/ListUser.reducer'
+import {listUserReducer} from '../component/reducer/EmployeeReducer'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 

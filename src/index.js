@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ListUser from './component/ListUser';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux'
 import {store,fetchTodos} from './store/store'
-import Page from './component/initPage'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import EmployeeList from './component/list-employees'
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
-    <Page/>
+    <EmployeeList/>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,6 +1,6 @@
 import axios from 'axios';
 const initState = {
-    userId: 0,
+    userId: '',
     userName:'',
     fullName:'',
     email:'',
@@ -28,13 +28,12 @@ export const updateUser = (user) => async dispatch => {
 }
 export const deleteUser = id => async dispatch => {
     //call api 
-    const response = await axios.post('http://localhost:8080/api/delete-user', user);
+    const response = await axios.post('http://localhost:8080/api/delete-user', id);
     dispatch({ type: "deleteUser", payload: response.data });
 }
-export const createUser = id => async user =>{
+export const createUser = user => async dispatch =>{
     const response = await axios.post('http://localhost:8080/api/create-user', user);
     dispatch({ type: "createUser", payload: response.data });
-}
 }
 export const listUserReducer = (state = initState, action) => {
     switch (action.type) {
