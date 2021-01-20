@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap'
-import { connect ,useDispatch} from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import CreateButton from './create-button'
 import CreateEditEmployee from './create-edit-modal'
 import { getAllUser } from '../component/reducer/EmployeeReducer'
 const EmployeeList = (props) => {
     const [isOpenModal, setisOpenModal] = useState(false);
     const dispatch = useDispatch();
-
+    const [isOpenDetailEmployee, setIsOpenDetailEmployee] = useState(0);
 
     useEffect(() => {
         console.log("helo")
@@ -25,6 +25,18 @@ const EmployeeList = (props) => {
     const handleOnDelete = () => {
         alert("do you wanna delete");
     }
+    const listItem = props.data.map((value) =>
+        <tr>
+            <th scope="row"><a  id={value.userId} onClick={(e) => {setIsOpenDetailEmployee(value.userId)}}>{value.userId}</a></th>
+            <td>{value.userName}</td>
+            <td>{value.fullName}</td>
+            <td>{value.address}</td>
+            <td>{value.phoneNumber}</td>
+            <td>{value.email}</td>
+            <td><a href="#" onClick={handleOnDelete}>delete</a></td>
+        </tr>
+    )
+    console.log(isOpenDetailEmployee)
     return (
         <div>
             day la man hinh list
@@ -38,36 +50,18 @@ const EmployeeList = (props) => {
                         <th>Full Name</th>
                         <th>Address</th>
                         <th>Phone Number</th>
+                        <th>Email</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row"><a href="#">1</a></th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td><a href="#" onClick={handleOnDelete}>delete</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>@mdo</td>
-                        <td><a href="#">delete</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="row">3</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@mdo</td>
-                        <td><a href="#">delete</a></td>
-                    </tr>
+
+                    {listItem}
                 </tbody>
             </Table>
+            {isOpenDetailEmployee
+                && <CreateEditEmployee isOpenModal={true} handleOnClose={handleOnClose} isDisable={true} userId={isOpenDetailEmployee}/>
+            }
         </div>
     )
 }
